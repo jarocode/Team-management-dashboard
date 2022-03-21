@@ -11,9 +11,9 @@ import AppBadge from "components/reusables/AppBadge";
 import AppUser from "components/reusables/AppUser";
 import portrait6 from "assets/non-svg/portrait6.jpg";
 
-const Header = ({ header }) => {
+const Header = ({ header, collapsed }) => {
   return (
-    <Container>
+    <Container collapse={collapsed}>
       <Inner>
         <LeftDiv>
           {" "}
@@ -72,7 +72,7 @@ const Container = styled.div`
 
   width: 100%;
   background: ${color.white};
-  padding-right: 16rem;
+  padding-right: ${({ collapse }) => (collapse ? "3rem" : "16rem")};
   top: 0;
   z-index: 999;
 `;

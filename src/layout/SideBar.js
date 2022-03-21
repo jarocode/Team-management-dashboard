@@ -164,7 +164,6 @@ export default SideBar;
 
 const Container = styled.div`
   width: ${({ collapse }) => (collapse ? "80px" : "256px")};
-  width: 256px;
   height: 100vh;
   transition: width 0.2s ease;
   position: fixed;

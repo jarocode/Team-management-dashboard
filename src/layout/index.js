@@ -16,7 +16,7 @@ const Index = ({ children }) => {
         setIsCollapsed={setIsCollapsed}
         setHeader={setHeader}
       />
-      <Body children={children} header={header} />
+      <Body children={children} header={header} collapsed={isCollapsed} />
     </Container>
   );
 };

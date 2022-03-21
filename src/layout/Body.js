@@ -5,10 +5,10 @@ import { Typography } from "@mui/material";
 import { color } from "theme";
 import Header from "./Header";
 
-const Body = ({ children, header }) => {
+const Body = ({ children, header, collapsed }) => {
   return (
-    <Container>
-      <Header header={header} />
+    <Container collapsed={collapsed}>
+      <Header header={header} collapsed={collapsed} />
       {children}
     </Container>
   );
