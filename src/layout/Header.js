@@ -69,7 +69,6 @@ const Container = styled.div`
   align-items: center;
   padding: 0rem 0;
   position: fixed;
-
   width: 100%;
   background: ${color.white};
   padding-right: ${({ collapse }) => (collapse ? "3rem" : "16rem")};
@@ -79,7 +78,6 @@ const Container = styled.div`
 const Inner = styled.div`
   display: flex;
   padding: 1.4rem 0 1.4rem 3.5rem;
-
   justify-content: space-between;
   width: 97%;
 `;

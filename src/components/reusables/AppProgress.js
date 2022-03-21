@@ -35,7 +35,7 @@ export default function AppProgress() {
       setProgress((prevProgress) =>
         prevProgress >= 100 ? 10 : prevProgress + 10
       );
-    }, 800);
+    }, 2000);
     return () => {
       clearInterval(timer);
     };

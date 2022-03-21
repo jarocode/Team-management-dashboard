@@ -173,7 +173,7 @@ const Container = styled.div`
   padding-top: 0.5rem;
 `;
 const Inner = styled.div`
-  padding: 0 2rem;
+  padding: ${({ collapse }) => (collapse ? "0 .5rem" : "0 2rem")};
 `;
 
 const TopDiv = styled.div`

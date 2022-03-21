@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Typography, AvatarGroup, Avatar } from "@mui/material";
 import { MdAdd } from "react-icons/md";
@@ -30,6 +30,17 @@ import Staff from "components/reusables/Staff";
 import TaskProgress from "components/reusables/TaskProgress";
 
 const TeamBoard = () => {
+  const [progress, setProgress] = useState(10);
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? 10 : prevProgress + 10
+      );
+    }, 2000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
   const days = [
     { day: "T", number: 11 },
     { day: "F", number: 12 },
@@ -209,7 +220,7 @@ const TeamBoard = () => {
                       width="50%"
                       taskName="Database design"
                       marginLeft={"0rem"}
-                      percentage="50%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -220,7 +231,7 @@ const TeamBoard = () => {
                       width="65%"
                       taskName="Payments"
                       marginLeft={"4rem"}
-                      percentage="70%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -231,7 +242,7 @@ const TeamBoard = () => {
                       width="70%"
                       taskName="User profile"
                       marginLeft={"0rem"}
-                      percentage="60%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -242,7 +253,7 @@ const TeamBoard = () => {
                       width="65%"
                       taskName="User profile"
                       marginLeft={"8rem"}
-                      percentage="60%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -253,7 +264,7 @@ const TeamBoard = () => {
                       width="50%"
                       taskName="Database design"
                       marginLeft={"0rem"}
-                      percentage="50%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -264,7 +275,7 @@ const TeamBoard = () => {
                       width="65%"
                       taskName="Payments"
                       marginLeft={"4rem"}
-                      percentage="70%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -275,7 +286,7 @@ const TeamBoard = () => {
                       width="70%"
                       taskName="User profile"
                       marginLeft={"0rem"}
-                      percentage="60%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -286,7 +297,7 @@ const TeamBoard = () => {
                       width="65%"
                       taskName="User profile"
                       marginLeft={"8rem"}
-                      percentage="60%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -297,7 +308,7 @@ const TeamBoard = () => {
                       width="50%"
                       taskName="Database design"
                       marginLeft={"0rem"}
-                      percentage="50%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                   <ProgressDiv>
@@ -308,7 +319,7 @@ const TeamBoard = () => {
                       width="65%"
                       taskName="Payments"
                       marginLeft={"4rem"}
-                      percentage="70%"
+                      percentage={`${progress}%`}
                     />
                   </ProgressDiv>
                 </TaskInner>
