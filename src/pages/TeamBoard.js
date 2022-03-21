@@ -188,17 +188,22 @@ const TeamBoard = () => {
           <TaskBody>
             <Header>
               {days.map(({ day, number }) => (
-                <Typography
+                <Day
                   variant="subtitle2"
                   component="h2"
                   fontWeight={600}
                   fontSize={"17px"}
                   fontFamily={"Raleway"}
-                  color={color.grey}
-                  background={"red"}
+                  color={number === 20 ? color.white : color.grey}
+                  number={number}
                 >
-                  {day} <span style={{ color: color.black }}>{number}</span>
-                </Typography>
+                  {day}{" "}
+                  <span
+                    style={{ color: number === 20 ? color.white : color.black }}
+                  >
+                    {number}
+                  </span>
+                </Day>
               ))}
             </Header>
             <Body>
@@ -453,4 +458,11 @@ const ProgressDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+const Day = styled(Typography)`
+  position: relative;
+  background: ${(props) => props.number === 20 && color.blue};
+  padding: ${(props) => props.number === 20 && "7px"};
+  border-radius: ${(props) => props.number === 20 && "5px"};
 `;

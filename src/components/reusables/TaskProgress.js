@@ -37,7 +37,7 @@ const TaskProgress = ({
         fontWeight={600}
         fontSize={"16px"}
         fontFamily={"Raleway"}
-        color={progressColor}
+        color={percentage === "100%" ? color.white : progressColor}
       >
         {percentage}
       </Typography>
