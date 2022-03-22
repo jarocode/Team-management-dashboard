@@ -8,6 +8,7 @@ import {
   FiChevronDown,
   FiSearch,
 } from "react-icons/fi";
+import { datesGenerator } from "dates-generator";
 
 import { color } from "theme";
 import Layout from "layout";
@@ -28,9 +29,35 @@ import portrait14 from "assets/non-svg/portrait14.jpg";
 import portrait15 from "assets/non-svg/portrait15.jpg";
 import Staff from "components/reusables/Staff";
 import TaskProgress from "components/reusables/TaskProgress";
+import { dateFormatter } from "utils";
 
 const TeamBoard = () => {
   const [progress, setProgress] = useState(10);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [dates, setDates] = useState([]);
+  const [calendar, setCalendar] = useState({
+    month: selectedDate.getMonth(),
+    year: selectedDate.getFullYear(),
+  });
+
+  React.useEffect(() => {
+    const body = {
+      month: calendar.month,
+      year: calendar.year,
+    };
+    const { dates, nextMonth, nextYear, previousMonth, previousYear } =
+      datesGenerator(body);
+
+    setDates(dates.reduce((mainArr, el) => [...mainArr, ...el]));
+    setCalendar({
+      ...calendar,
+      nextMonth,
+      nextYear,
+      previousMonth,
+      previousYear,
+    });
+  }, []);
+
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) =>
@@ -41,24 +68,33 @@ const TeamBoard = () => {
       clearInterval(timer);
     };
   }, []);
-  const days = [
-    { day: "T", number: 11 },
-    { day: "F", number: 12 },
-    { day: "S", number: 13 },
-    { day: "S", number: 14 },
-    { day: "M", number: 15 },
-    { day: "T", number: 16 },
-    { day: "W", number: 17 },
-    { day: "T", number: 18 },
-    { day: "F", number: 19 },
-    { day: "S", number: 20 },
-    { day: "S", number: 21 },
-    { day: "M", number: 22 },
-    { day: "T", number: 23 },
-    { day: "W", number: 24 },
-    { day: "T", number: 25 },
-    { day: "F", number: 26 },
-    { day: "S", number: 27 },
+
+  const handlePrev = () => {
+    setCalendar((prev) => ({
+      ...prev,
+      month: prev.month === 0 ? prev.month : prev.month - 1,
+    }));
+  };
+  const handleNext = () => {
+    setCalendar((prev) => ({
+      ...prev,
+      month: prev.month === 11 ? prev.month : prev.month + 1,
+    }));
+  };
+
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const borderLines = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -158,13 +194,18 @@ const TeamBoard = () => {
                 fontFamily={"Raleway"}
                 color={color.black}
               >
-                February 2021
+                {month[calendar.month]} {calendar.year}
               </Typography>
               <div>
-                <FiChevronLeft color={color.grey} />
+                <FiChevronLeft
+                  color={color.grey}
+                  style={{ cursor: "pointer" }}
+                  onClick={handlePrev}
+                />
                 <FiChevronRight
                   color={color.grey}
-                  style={{ marginLeft: ".5rem" }}
+                  style={{ marginLeft: ".5rem", cursor: "pointer" }}
+                  onClick={handleNext}
                 />
               </div>
             </DateHeader>
@@ -187,19 +228,27 @@ const TeamBoard = () => {
           </CalenderHeader>
           <TaskBody>
             <Header>
-              {days.map(({ day, number }) => (
+              {dateFormatter(dates, selectedDate).map(({ day, number }) => (
                 <Day
                   variant="subtitle2"
                   component="h2"
                   fontWeight={600}
                   fontSize={"17px"}
                   fontFamily={"Raleway"}
-                  color={number === 20 ? color.white : color.grey}
+                  currentDate={selectedDate.getDate()}
+                  color={
+                    number === selectedDate.getDate() ? color.white : color.grey
+                  }
                   number={number}
                 >
                   {day}{" "}
                   <span
-                    style={{ color: number === 20 ? color.white : color.black }}
+                    style={{
+                      color:
+                        number === selectedDate.getDate()
+                          ? color.white
+                          : color.black,
+                    }}
                   >
                     {number}
                   </span>
@@ -462,7 +511,7 @@ const ProgressDiv = styled.div`
 
 const Day = styled(Typography)`
   position: relative;
-  background: ${(props) => props.number === 20 && color.blue};
-  padding: ${(props) => props.number === 20 && "7px"};
-  border-radius: ${(props) => props.number === 20 && "5px"};
+  background: ${(props) => props.number === props.currentDate && color.blue};
+  padding: ${(props) => props.number === props.currentDate && "7px"};
+  border-radius: ${(props) => props.number === props.currentDate && "5px"};
 `;
